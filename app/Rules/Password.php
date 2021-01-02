@@ -25,10 +25,10 @@ class Password implements Rule
 
         $password_score = 0;
         $min_complexity = 2;
-        preg_match("/[0-9]+/", $value) === 1 && $password_score++;
-        preg_match("/[a-z]+/", $value) === 1 && $password_score++;
-        preg_match("/[A-Z]+/", $value) === 1 && $password_score++;
-        preg_match("/[_|\-|+|=|*|!|@|#|$|%|^|&|(|)|.|,|\?|\[|\]|\/|<|>]+/", $value) === 1 && $password_score++;
+        preg_match('/[0-9]+/', $value) === 1 && $password_score++;
+        preg_match('/[a-z]+/', $value) === 1 && $password_score++;
+        preg_match('/[A-Z]+/', $value) === 1 && $password_score++;
+        preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) === 1 && $password_score++;
 
         return $password_score >= $min_complexity;
     }
