@@ -37,6 +37,17 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "hooks": {
+            "pre-commit": [
+                "composer test",
+                "composer check-coding-standards"
+            ],
+            "pre-push": [
+                "composer test",
+                "composer fix-coding-standards"
+            ],
+            "post-merge": "composer install"
         }
     },
     "autoload": {
@@ -66,6 +77,24 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "post-update-cmd": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "cghooks update"
+        ],
+        "post-install-cmd": [
+            "cghooks add --ignore-lock",
+            "cghooks update"
+        ],
+        "test": "@php artisan test",
+        "cghooks": "vendor/bin/cghooks",
+        "fix-coding-standards": "php-cs-fixer fix --using-cache=no --config=.php_cs --ansi",
+        "check-coding-standards": "php-cs-fixer fix --using-cache=no --diff --config=.php_cs --dry-run --ansi"
+    },
+    "scripts-descriptions": {
+        "test": "Rul all the tests.",
+        "fix-coding-standards": "Run the coding standards fixer.",
+        "check-coding-standards": "Run the coding standards checker."
     }
 }
