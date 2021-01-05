@@ -63,6 +63,6 @@ class Password implements Rule
      */
     public function message()
     {
-        return '请输入 8-24 位的密码，包含以下 2 种组合：数字、小写字母、大写字母、标点符号';
+        return sprintf('请输入 %d-%d 位的密码，包含以下 2 种组合：数字、小写字母、大写字母、标点符号', $this->minLength, $this->maxLength);
     }
 }
