@@ -5,9 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 
 /**
- * Class Password
- *
- * @package App\Rules
+ * Class Password.
  */
 class Password implements Rule
 {
@@ -27,8 +25,9 @@ class Password implements Rule
     /**
      * Password constructor.
      *
-     * @param  int  $minLength
-     * @param  int  $maxLength
+     * @param int $minLength
+     * @param int $maxLength
+     * @param int $min_complexity
      */
     public function __construct($minLength = 8, $maxLength = 24, $min_complexity = 2)
     {
@@ -38,22 +37,22 @@ class Password implements Rule
     }
 
     /**
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed  $value
      *
      * @return bool
      */
     public function passes($attribute, $value)
     {
-        if (strlen($value) < $this->minLength || strlen($value > $this->maxLength)) {
+        if (mb_strlen($value) < $this->minLength || mb_strlen($value > $this->maxLength)) {
             return false;
         }
 
         $password_score = 0;
-        preg_match('/[0-9]+/', $value) === 1 && $password_score++;
-        preg_match('/[a-z]+/', $value) === 1 && $password_score++;
-        preg_match('/[A-Z]+/', $value) === 1 && $password_score++;
-        preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) === 1 && $password_score++;
+        1 === preg_match('/[0-9]+/', $value) && $password_score++;
+        1 === preg_match('/[a-z]+/', $value) && $password_score++;
+        1 === preg_match('/[A-Z]+/', $value) && $password_score++;
+        1 === preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) && $password_score++;
 
         return $password_score >= $this->min_complexity;
     }

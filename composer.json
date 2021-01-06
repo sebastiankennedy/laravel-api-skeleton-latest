@@ -88,8 +88,8 @@
         ],
         "test": "@php artisan test",
         "cghooks": "vendor/bin/cghooks",
-        "fix-coding-standards": "php-cs-fixer fix --using-cache=no --config=.php_cs --ansi",
-        "check-coding-standards": "php-cs-fixer fix --using-cache=no --diff --config=.php_cs --dry-run --ansi"
+        "fix-coding-standards": "php-cs-fixer fix --using-cache=no --config=.php_cs --ansi --allow-risky=yes",
+        "check-coding-standards": "php-cs-fixer fix --using-cache=no --diff --config=.php_cs --dry-run --ansi --allow-risky=yes"
     },
     "scripts-descriptions": {
         "test": "Rul all the tests.",
