@@ -35,6 +35,6 @@ class Phone implements Rule
      */
     public function message()
     {
-        return '请输入正确的手机号码';
+        return '请输入正确的手机号码。';
     }
 }
