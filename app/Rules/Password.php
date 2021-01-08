@@ -20,20 +20,20 @@ class Password implements Rule
     /**
      * @var
      */
-    private $min_complexity;
+    private $minComplexity;
 
     /**
      * Password constructor.
      *
      * @param int $minLength
      * @param int $maxLength
-     * @param int $min_complexity
+     * @param int $minComplexity
      */
-    public function __construct($minLength = 8, $maxLength = 24, $min_complexity = 2)
+    public function __construct($minLength = 8, $maxLength = 24, $minComplexity = 2)
     {
         $this->minLength = $minLength;
         $this->maxLength = $maxLength;
-        $this->min_complexity = $min_complexity;
+        $this->minComplexity = $minComplexity;
     }
 
     /**
@@ -54,7 +54,7 @@ class Password implements Rule
         1 === preg_match('/[A-Z]+/', $value) && $password_score++;
         1 === preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) && $password_score++;
 
-        return $password_score >= $this->min_complexity;
+        return $password_score >= $this->minComplexity;
     }
 
     /**
