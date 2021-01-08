@@ -44,17 +44,21 @@ class Password implements Rule
      */
     public function passes($attribute, $value)
     {
+        if ($this->minLength >= $this->maxLength) {
+            return false;
+        }
+
         if (mb_strlen($value) < $this->minLength || mb_strlen($value > $this->maxLength)) {
             return false;
         }
 
-        $password_score = 0;
-        1 === preg_match('/[0-9]+/', $value) && $password_score++;
-        1 === preg_match('/[a-z]+/', $value) && $password_score++;
-        1 === preg_match('/[A-Z]+/', $value) && $password_score++;
-        1 === preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) && $password_score++;
+        $passwordScore = 0;
+        1 === preg_match('/[0-9]+/', $value) && $passwordScore++;
+        1 === preg_match('/[a-z]+/', $value) && $passwordScore++;
+        1 === preg_match('/[A-Z]+/', $value) && $passwordScore++;
+        1 === preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $value) && $passwordScore++;
 
-        return $password_score >= $this->minComplexity;
+        return $passwordScore >= $this->minComplexity;
     }
 
     /**
