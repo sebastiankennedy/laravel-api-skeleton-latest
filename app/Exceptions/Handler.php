@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,5 +37,21 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
         });
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function invalidJson($request, ValidationException $exception)
+    {
+        $errors = $exception->errors();
+        $firstError = \reset($errors);
+
+        return response()->json([
+            'message' => '参数错误' ?? $firstError[0],
+            'errors' => $errors,
+        ], $exception->status);
     }
 }
